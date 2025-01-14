@@ -21,6 +21,32 @@ def pair_sum_sorted(nums: List[int], target_sum: int) -> List[int]:
     return []
 
 
-result = pair_sum_sorted(input_nums, target)
+def pair_sum_sorted_naive(nums: List[int], target_sum: int) -> List[int]:
+    left = 0
 
-print(result)
+    while left < len(nums) - 2:
+
+        right = left + 1
+
+        while right < len(nums) - 1:
+            sum = nums[left] + nums[right]
+
+            if sum == target_sum:
+                return [left, right]
+
+            right += 1
+
+        left += 1
+
+    return []
+
+
+result1 = pair_sum_sorted(input_nums, target)
+
+print("Solution #1")
+print(result1)
+
+result2 = pair_sum_sorted_naive(input_nums, target)
+
+print("Solution #2")
+print(result2)
