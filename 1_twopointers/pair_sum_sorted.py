@@ -1,6 +1,8 @@
 from typing import List
 
 input_nums = [-5, -2, 3, 4, 6]
+expected_output = [3, 4]
+
 target = 7
 
 
@@ -43,10 +45,13 @@ def pair_sum_sorted_naive(nums: List[int], target_sum: int) -> List[int]:
 
 result1 = pair_sum_sorted(input_nums, target)
 
-print("Solution #1")
+print(f"Input: {input_nums}")
+print(f"Expected output: {expected_output}")
+
+print("Solution #1 output")
 print(result1)
 
 result2 = pair_sum_sorted_naive(input_nums, target)
 
-print("Solution #2")
+print("Solution #2 output")
 print(result2)
