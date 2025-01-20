@@ -13,9 +13,9 @@ def print_linkedlist(head: ListNode) -> None:
 
 
 def create_linkedlist(size: int):
-    head = ListNode(1)
+    head = ListNode(0)
     current = head
-    for i in range(2, size + 1):
+    for i in range(1, size):
         current.next = ListNode(i)
         current = current.next
 
