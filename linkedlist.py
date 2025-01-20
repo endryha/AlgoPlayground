@@ -3,6 +3,12 @@ class ListNode:
         self.value = value
         self.next = next_node
 
+    def __str__(self):
+        if self.next:
+            return f"{self.value} → {self.next.value}"
+        else:
+            return f"{self.value}"
+
 
 def print_linkedlist(head: ListNode) -> None:
     current = head
