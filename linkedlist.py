@@ -20,31 +20,23 @@ class DoublyLinkedListNode:
         return f"{self.value}"
 
 
-def doubly_linkedlist_str(head: DoublyLinkedListNode, prefix: str = "", suffix: str = "") -> str:
+def linkedlist_str(head, prefix: str = "", suffix: str = "", formatter=None) -> str:
     current = head
-    output = prefix if prefix else ""
+    output = prefix
+
+    if formatter is None:
+        def formatter(node):
+            if hasattr(node, 'key'):
+                return f"({node.key},{node.value})"
+            return str(node.value)
 
     while current:
-        output += f"({str(current.key)},{str(current.value)})"
+        output += formatter(current)
         if current.next:
             output += " → "
         current = current.next
 
-    output += suffix if suffix else ""
-    return output
-
-
-def linkedlist_str(head: ListNode, prefix: str = "", suffix: str = "") -> str:
-    current = head
-    output = prefix if prefix else ""
-
-    while current:
-        output += str(current.value)
-        if current.next:
-            output += " → "
-        current = current.next
-
-    output += suffix if suffix else ""
+    output += suffix
     return output
 
 

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from linkedlist import DoublyLinkedListNode, doubly_linkedlist_str
+from linkedlist import DoublyLinkedListNode, linkedlist_str
 
 
 class LruCache:
@@ -19,12 +19,12 @@ class LruCache:
         if key in self.cache:
             node = self.cache[key]
 
-            if key == self.head.key:
-                self.remove_from_head()
-            elif key != self.tail.key:
-                self.remove_node(node)
-
-            self.add_to_tail(node)
+            if key != self.tail.key:
+                if key == self.head.key:
+                    self.remove_from_head()
+                else:
+                    self.remove_node(node)
+                self.add_to_tail(node)
 
             return node.value
         else:
@@ -90,7 +90,7 @@ class LruCache:
         return len(self.cache)
 
     def __str__(self):
-        return f"size: {len(self)}, items: {doubly_linkedlist_str(self.head)}"
+        return f"size: {len(self)}, items: {linkedlist_str(self.head)}"
 
 
 lru = LruCache(4)
@@ -112,4 +112,6 @@ print(lru, end="\n\n")
 lru.get(3)
 print(lru, end="\n\n")
 lru.put(5, 5)
+print(lru, end="\n\n")
+lru.get(5)
 print(lru, end="\n\n")
