@@ -2,7 +2,7 @@ from linkedlist import create_linkedlist, ListNode, print_linkedlist
 
 
 def remove_k_last_node_naive(head: ListNode, k: int) -> ListNode:
-    print(f"[remove_k_last_node_naive] remove {k} last node in a list:")
+    print(f"remove {k} last node in a list:")
     print_linkedlist(head)
 
     if k < 1:
@@ -18,8 +18,6 @@ def remove_k_last_node_naive(head: ListNode, k: int) -> ListNode:
         return head
 
     node_idx_to_remove = size - k - 1
-
-    print(f"[remove_k_last_node_naive] size: {size}, node index to remove: {node_idx_to_remove}")
 
     dummy_head = ListNode(None, head)
     current = dummy_head
@@ -37,7 +35,7 @@ def remove_k_last_node_naive(head: ListNode, k: int) -> ListNode:
 
 
 def remove_k_last_node_2_pointers(head: ListNode, k: int) -> ListNode:
-    print(f"[remove_k_last_node_2_pointers] remove {k} last node in a list:")
+    print(f"remove {k} last node in a list:")
     print_linkedlist(head)
 
     counter = k
@@ -67,7 +65,6 @@ def remove_k_last_node_2_pointers(head: ListNode, k: int) -> ListNode:
 
 print("Naive")
 head = create_linkedlist(10)
-
 new_head = remove_k_last_node_naive(head, 9)
 
 print_linkedlist(new_head)
