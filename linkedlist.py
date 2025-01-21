@@ -5,24 +5,42 @@ class ListNode:
 
     def __str__(self):
         if self.next:
-            return f"{self.value} → {self.next.value}"
+            return f"{self.value} → next({self.next.value})"
         else:
             return f"{self.value}"
 
 
-def print_linkedlist(head: ListNode) -> None:
+def linkedlist_str(head: ListNode, prefix: str = "", suffix: str = "") -> str:
     current = head
+    output = prefix if prefix else ""
+
     while current:
-        print(current.value, end=" → " if current.next else "")
+        output += str(current.value)
+        if current.next:
+            output += " → "
         current = current.next
-    print()
+
+    output += suffix if suffix else ""
+    return output
 
 
-def create_linkedlist(size: int):
-    head = ListNode(0)
+def print_linkedlist(head: ListNode, prefix: str = "", suffix: str = "") -> None:
+    print(linkedlist_str(head, prefix, suffix))
+
+
+def create_linkedlist(size: int, start: int = None):
+    head = ListNode(start)
     current = head
-    for i in range(1, size):
+    for i in range(start + 1, start + size):
         current.next = ListNode(i)
         current = current.next
 
     return head
+
+
+def get_tail_node(start_node: ListNode):
+    current = start_node
+    while current.next:
+        current = current.next
+
+    return current
