@@ -38,7 +38,10 @@ def linkedlist_str(
     if formatter is None:
         def formatter(node: Any) -> str:
             if hasattr(node, 'key'):
-                return f"({node.key},{node.value})"
+                if node.value:
+                    return f"({node.key},{node.value})"
+                else:
+                    return f"({node.key})"
             return str(node.value)
     parts = []
     current = head
