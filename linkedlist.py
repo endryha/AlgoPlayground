@@ -43,11 +43,24 @@ def linkedlist_str(
                 else:
                     return f"({node.key})"
             return str(node.value)
+
+    visited_nodes = set()
     parts = []
     current = head
+    is_cycled = False
     while current:
         parts.append(formatter(current))
+
+        if current in visited_nodes:
+            is_cycled = True
+            break
+
+        visited_nodes.add(current)
+
         current = current.next
+
+    if is_cycled:
+        suffix += "! (cycled)"
     return f"{prefix}{' → '.join(parts)}{suffix}"
 
 
