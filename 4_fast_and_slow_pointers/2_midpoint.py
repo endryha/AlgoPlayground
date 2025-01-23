@@ -23,12 +23,11 @@ def find_midpoint_2_pointers(head: ListNode) -> ListNode:
     fast = head
     slow = head
 
-    while True:
-        if fast is None or fast.next is None:
-            return slow
-
+    while fast and fast.next:
         slow = slow.next
         fast = fast.next.next
+
+    return slow
 
 
 def test_find_midpoint(head: ListNode):
