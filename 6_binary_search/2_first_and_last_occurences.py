@@ -4,59 +4,63 @@ from unittest import TestCase
 
 
 def find_first_and_last_occurrences(nums: List[int], target: int) -> List[int]:
-    lower_index = find_first_and_last_occurrences_lower(nums, target)
+    lower_index = search_lowerbound(nums, target)
 
     if lower_index == -1:
         return [-1, -1]
 
-
-    upper_index = find_first_and_last_occurrences_upper(nums, target)
+    upper_index = search_upperbound(nums, target)
 
     return [lower_index, upper_index]
 
 
-def find_first_and_last_occurrences_lower(nums: List[int], target: int) -> int:
+def search_lowerbound(nums: List[int], target: int) -> int:
     left, right = 0, len(nums) - 1
+    result = -1
 
     while left < right:
         mid = (left + right) // 2
 
-        if target <= nums[mid]:
+        if target == nums[mid]:
+            result = mid
+            right = mid
+        elif target <= nums[mid]:
             right = mid
         else:
             left = mid + 1
 
-    return left if nums[left] == target else -1
+    return result
 
 
-def find_first_and_last_occurrences_upper(nums: List[int], target: int) -> int:
+def search_upperbound(nums: List[int], target: int) -> int:
     left, right = 0, len(nums) - 1
+    result = -1
 
     while left < right:
-        if nums[right] == target:
-            return right
-
         mid = (left + right) // 2
 
-        if target >= nums[mid]:
-            left = mid
+        if target == nums[mid]:
+            result = mid
+            left = mid + 1
+        elif target > nums[mid]:
+            left = mid + 1
         else:
-            right = mid - 1
+            right = mid
 
-    return right if nums[right] == target else -1
+    return result
 
 
 class Test(TestCase):
     def test_find_first_and_last_occurrences_lower(self):
         nums = [1, 2, 3, 4, 4, 4, 5, 6, 7]
         target = 4
-        lower_index = find_first_and_last_occurrences_lower(nums, target)
+        lower_index = search_lowerbound(nums, target)
         print(f"{nums} target: {target} -> lower index: {lower_index}")
 
         self.assertEqual(3, lower_index)
 
         target = 0
-        lower_index = find_first_and_last_occurrences_lower(nums, target)
+        lower_index = search_lowerbound(nums, target)
         print(f"{nums} target: {target} -> lower index: {lower_index}")
 
         self.assertEqual(-1, lower_index)
@@ -64,13 +68,13 @@ class Test(TestCase):
     def test_find_first_and_last_occurrences_upper(self):
         nums = [1, 2, 3, 4, 4, 4, 5, 6, 7]
         target = 4
-        lower_index = find_first_and_last_occurrences_upper(nums, target)
+        lower_index = search_upperbound(nums, target)
         print(f"{nums} target: {target} -> lower index: {lower_index}")
 
         self.assertEqual(5, lower_index)
 
         target = 0
-        lower_index = find_first_and_last_occurrences_upper(nums, target)
+        lower_index = search_upperbound(nums, target)
         print(f"{nums} target: {target} -> lower index: {lower_index}")
 
         self.assertEqual(-1, lower_index)
