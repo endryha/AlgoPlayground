@@ -3,16 +3,19 @@ from typing import List
 
 def cutting_wood(heights: List[int], min_cut_length: int) -> int:
     left, right = 0, max(heights)
+    result = -1
 
-    while left < right:
-        mid = (left + right) // 2 + 1
-        wood_cut_count = count_wood_cut(heights, mid)
-        if min_cut_length >= wood_cut_count:
-            right = mid
+    while left <= right:
+        height = (left + right) // 2
+        wood_cut_count = count_wood_cut(heights, height)
+
+        if wood_cut_count >= min_cut_length:
+            result = height
+            left = height + 1
         else:
-            left = mid + 1
+            right = height - 1
 
-    return right
+    return result
 
 
 def count_wood_cut(heights: List[int], cut_height: int) -> int:
@@ -29,3 +32,4 @@ heights = [2, 6, 3, 8]
 min_cut_length = 7
 
 result = cutting_wood(heights, min_cut_length)
+print(result)
