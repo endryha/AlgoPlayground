@@ -43,6 +43,28 @@ def binary_search(nums: List[int], target: int, left: int, right: int) -> int:
     return -1
 
 
+def find_the_target_in_a_rotated_sorted_array_optimized(nums: List[int], target: int) -> int:
+    left, right = 0, len(nums) - 1
+
+    while left < right:
+        mid = left + (right - left) // 2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[left] < nums[mid]:
+            if nums[left] <= target < nums[mid]:
+                right = mid - 1
+            else:
+                left = mid
+        else:
+            if nums[mid] < target <= nums[right]:
+                left = mid + 1
+            else:
+                right = mid
+
+    return left if nums and nums[left] == target else -1
+
+
 class Test(TestCase):
     nums1 = [1, 2, 3, 4, 5, 6]
     nums2 = [7, 8, 9]
@@ -59,6 +81,22 @@ class Test(TestCase):
             expected_idx = expected_indices[i]
             target = i + 1
             result = find_the_target_in_a_rotated_sorted_array(self.rotated_array, target)
+
+            print(f"value({target}) -> idx({result}) -> expectedIdx({expected_idx})")
+
+            self.assertEqual(expected_idx, result)
+
+    def test_find_the_target_in_a_rotated_sorted_array_optimized(self):
+        print("Rotated sorted array:", self.rotated_array)
+
+        expected_indices = [3, 4, 5, 6, 7, 8, 0, 1, 2]
+
+        self.assertEqual(len(self.rotated_array), len(expected_indices))
+
+        for i, value in enumerate(expected_indices):
+            expected_idx = expected_indices[i]
+            target = i + 1
+            result = find_the_target_in_a_rotated_sorted_array_optimized(self.rotated_array, target)
 
             print(f"value({target}) -> idx({result}) -> expectedIdx({expected_idx})")
 
