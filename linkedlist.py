@@ -9,10 +9,13 @@ class ListNode:
     def __str__(self) -> str:
         if self.next:
             return f"{self.value} → next({self.next.value})"
-        return f"{self.value}"
+        return str(self.value)
 
     def __repr__(self) -> str:
-        return f"ListNode({self.value!r})"
+        return self.__str__()
+
+    def __lt__(self, other):
+        return self.value < other.value
 
 
 class DoublyLinkedListNode:
@@ -23,10 +26,12 @@ class DoublyLinkedListNode:
         self.prev: Optional['DoublyLinkedListNode'] = None
 
     def __str__(self) -> str:
-        return f"{self.value}"
+        if self.next:
+            return f"({self.key},{self.value}) → next({self.next.key},{self.next.value})"
+        return f"({self.key},{self.value})"
 
     def __repr__(self) -> str:
-        return f"DoublyLinkedListNode(key={self.key!r}, value={self.value!r})"
+        return self.__str__()
 
 
 def linkedlist_str(
