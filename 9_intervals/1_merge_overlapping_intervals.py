@@ -2,14 +2,11 @@ import unittest
 from typing import List
 from unittest import TestCase
 
-from interval import Interval
+from interval import Interval, create_intervals, draw_intervals
 
 
 def merge_overlapping_intervals(intervals: List[Interval]) -> List[Interval]:
     sorted_intervals = sorted(intervals, key=lambda interval: interval.start)
-    print("sorted intervals:")
-    print(sorted_intervals)
-
     result = [sorted_intervals[0]]
 
     for i in sorted_intervals[1:]:
@@ -23,24 +20,17 @@ def merge_overlapping_intervals(intervals: List[Interval]) -> List[Interval]:
     return result
 
 
-intervals = [Interval(3, 4),
-             Interval(7, 8),
-             Interval(2, 5),
-             Interval(6, 7),
-             Interval(1, 4)]
-
-
 class Test(TestCase):
     def test_merge_overlapping_intervals(self):
-        test_intervals = [Interval(3, 4),
-                          Interval(7, 8),
-                          Interval(2, 5),
-                          Interval(6, 7),
-                          Interval(1, 4)]
+        test_intervals = create_intervals([(3, 4), (7, 8), (2, 5), (6, 7), (1, 4)])
+        expected_result = create_intervals([(1, 5), (6, 8)])
 
-        expected_result = [Interval(1, 5), Interval(6, 8)]
+        draw_intervals(test_intervals)
+        print()
 
         result = merge_overlapping_intervals(test_intervals)
+
+        draw_intervals(result)
 
         self.assertEqual(expected_result, result)
 
