@@ -2,7 +2,7 @@ import unittest
 from typing import List
 from unittest import TestCase
 
-from interval import Interval, draw_intervals
+from interval import Interval, draw_intervals, create_intervals
 
 
 def find_intervals_overlap(intervals1: List[Interval], intervals2: List[Interval]) -> List[Interval]:
@@ -32,14 +32,10 @@ def find_intervals_overlap(intervals1: List[Interval], intervals2: List[Interval
 class Test(TestCase):
 
     def test_find_intervals_overlap(self):
-        intervals1 = [Interval(1, 4),
-                      Interval(5, 6),
-                      Interval(9, 10)]
+        intervals1 = create_intervals([(1, 4), (5, 6), (9, 10)])
+        intervals2 = create_intervals([(2, 7), (8, 9)])
 
-        intervals2 = [Interval(2, 7),
-                      Interval(8, 9)]
-
-        expected_result = [Interval(2, 4), Interval(5, 6), Interval(9, 9)]
+        expected_result = create_intervals([(2, 4), (5, 6), (9, 9)])
 
         print("intervals 1:")
         print(intervals1)
